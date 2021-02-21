@@ -27,7 +27,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jogo-multiplayer" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -44,11 +44,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1606419975271</updated>
-      <workItem from="1606419976457" duration="3068000" />
+      <workItem from="1606419976457" duration="6348000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="580" y="187" key="FileChooserDialogImpl" timestamp="1606424646714">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="580" y="187" key="FileChooserDialogImpl/62.0.1474.864/1982.0.2498.1080@62.0.1474.864" timestamp="1606424646714" />
   </component>
 </project>

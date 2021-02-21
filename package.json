@@ -1,0 +1,23 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">   <a href=\"#rocket-tecnologias\">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;   <a href=\"#-projeto\">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;   <a href=\"#-como-rodar\">Como rodar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;   <a href=\"#-como-contribuir\">Como contribuir</a>&nbsp;&nbsp;&nbsp;   </p>",
+  "main": "game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamangueira7/tic-tac-toe-multiplayer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamangueira7/tic-tac-toe-multiplayer/issues"
+  },
+  "homepage": "https://github.com/jamangueira7/tic-tac-toe-multiplayer#readme",
+  "dependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

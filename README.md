@@ -26,6 +26,8 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 Jogo da velha em rede.
 
+Baseado no video do canal [Código fonte](https://www.youtube.com/watch?v=M258B1b_pMs)
+
 
 ## 🚀 Como Rodar
 
