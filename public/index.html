@@ -20,10 +20,20 @@
     <script type="text/javascript" src="game.js"></script>
     <script>
         function sendUserMessager(obj) {
-            $('.messages')
-                .append(
-                    '<div class="message"><strong>'+ obj.user +'</strong>: '+ obj.id +'</div>');
+            if(socket.id == obj.id) {
+                $('.messages')
+                    .append(
+                        '<div class="redText" ><strong>'+ obj.username +'['+obj.option+']</strong>: '+ obj.id +'</div>');
+
+            } else {
+                $('.messages')
+                    .append(
+                        '<div class="message" ><strong>'+ obj.username +'['+obj.option+']</strong>: '+ obj.id +'</div>');
+
+            }
+
         }
+
 
         function sendMessager(message) {
             $('.messages')
@@ -59,6 +69,7 @@
         socket.on('gameUsers', function (users) {
             sendMessager('Jogadores: ');
             for(user of users) {
+                console.log(`Socket conectado: ${user}`);
                 sendUserMessager(user);
             }
             sendMessager('------------------------------');

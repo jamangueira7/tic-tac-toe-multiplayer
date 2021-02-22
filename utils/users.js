@@ -1,12 +1,26 @@
 const users = [];
+const options = ['X', 'O'];
 
 function userJoin(id, username) {
 
-    const user = { id, username };
+
+    const option = optionsPlay()
+    const user = { id, username, option };
 
     users.push(user);
 
     return user;
+}
+
+function optionsPlay() {
+
+    if (userLength() == 0){
+        const rand = Math.floor(Math.random() * 2);
+        return options[rand];
+    } else {
+        const index = options.findIndex(option => option === users[0].option);
+        return index === 0 ? options[1] : options[0];
+    }
 }
 
 function getCurrentUser(id) {

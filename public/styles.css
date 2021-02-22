@@ -24,6 +24,8 @@ body {
     font-size: 25px;
 }
 
+
+
 .game > div {
     border: 6px solid #2c3e50;
     border-radius: 2px;
@@ -64,6 +66,13 @@ body {
     font-size: 15px;
     font-weight: bold;
     color: #2c3e50;
+}
+
+.redText {
+    margin: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: lightcoral;
 }
 
 .buttonRestart {

@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
     socket.broadcast.to("1").emit('playIn', `Jogador ${socket.id} Entrou!`);
 
     io.to("1").emit('gameUsers', usersIn());
-
+    
     if(userLength() >= 2 && !gameInit) {
         gameInit = true;
         io.to("1").emit('gameStart', 'Jogo iniciado!');
