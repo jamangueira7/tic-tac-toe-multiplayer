@@ -20,30 +20,40 @@
         game.init( document.querySelector('.game') );
         game.start();
 
-        document.querySelector('.chat-messages')
-        
+        function scrollFocus() {
+            document.querySelector('.messages').scrollTop = document.querySelector('.messages').scrollHeight;
+        }
+
         socket.on('gameStart', function () {
             $('.messages')
                 .append(
                     '<div class="message">Jogo inicado!</div>');
+
+            scrollFocus();
         });
 
         socket.on('playIn', function (message) {
             $('.messages')
                 .append(
                     '<div class="message"><strong>'+ message.user +'</strong>: '+ message.id +'</div>');
+
+            scrollFocus();
         });
 
         socket.on('PlayOut', function (message) {
             $('.messages')
                 .append(
                     '<div class="message">'+ message +'</div>');
+
+            scrollFocus();
         });
 
         socket.on('gameError', function (message) {
             $('.messages')
                 .append(
                     '<div class="message">'+ message +'</div>');
+
+            scrollFocus();
         });
 
         socket.on('gameUsers', function (users) {
@@ -52,6 +62,8 @@
                     .append(
                         '<div class="message"><strong>'+ user.user +'</strong>: '+ user.id +'</div>');
             }
+
+            scrollFocus();
 
         });
 
