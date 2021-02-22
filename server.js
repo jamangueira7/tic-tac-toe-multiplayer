@@ -19,20 +19,16 @@ app.use('/', (req, res) => {
 
 //conectando no jogo
 io.on('connection', (socket) => {
-   console.log(`Socket conectado: ${socket.id}`);
+    console.log(`Socket conectado: ${socket.id}`);
 
-    users.push(socket.id);
+    if(users.length >= 2 ) {
+        socket.emit('gameError', `Jogo ocupado!`);
+        return;
+    }
 
-    var messageObject = {
-        user: users.length === 1 ? 'user1': 'user2',
-        id: socket.id,
-    };
+    socket.join("1");
 
-    socket.broadcast.emit('playIn', messageObject);
 
-   if(users.length >= 2 ) {
-       socket.broadcast.emit('gameStart');
-   }
 
     socket.on('disconnect', () => {
         const index = users.findIndex(user => user.id === socket.id);
@@ -41,8 +37,25 @@ io.on('connection', (socket) => {
             return users.splice(index, 1)[0];
         }
 
-        console.log(`Socket ${socket.id} saiu!`);
+        socket.broadcast.to("1").emit('PlayOut', `Jogador ${socket.id} saiu!`);
     });
+
+    let messageObject = {
+        user: `user${users.length}`,
+        id: socket.id
+    };
+
+    users.push(messageObject);
+
+    console.log(`users ${users.length}`);
+
+    socket.broadcast.to("1").emit('playIn', messageObject);
+
+    io.to("1").emit('gameUsers', users);
+
+    if(users.length >= 2 ) {
+        socket.broadcast.to("1").emit('gameStart',);
+    }
 });
 
 server.listen(3000);

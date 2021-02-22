@@ -12,12 +12,47 @@
 <body>
     <div class="game"></div>
     <div class="description">
-
+        <div class="messages"></div>
+        <button class="buttonRestart">Reiniciar jogo!</button>
     </div>
     <script type="text/javascript" src="game.js"></script>
     <script>
         game.init( document.querySelector('.game') );
         game.start();
+
+        socket.on('gameStart', function () {
+            $('.messages')
+                .append(
+                    '<div class="message">Jogo inicado!</div>');
+        });
+
+        socket.on('playIn', function (message) {
+            $('.messages')
+                .append(
+                    '<div class="message"><strong>'+ message.user +'</strong>: '+ message.id +'</div>');
+        });
+
+        socket.on('PlayOut', function (message) {
+            $('.messages')
+                .append(
+                    '<div class="message">'+ message +'</div>');
+        });
+
+        socket.on('gameError', function (message) {
+            $('.messages')
+                .append(
+                    '<div class="message">'+ message +'</div>');
+        });
+
+        socket.on('gameUsers', function (users) {
+            for(user of users) {
+                $('.messages')
+                    .append(
+                        '<div class="message"><strong>'+ user.user +'</strong>: '+ user.id +'</div>');
+            }
+
+        });
+
     </script>
 </body>
 </html>
