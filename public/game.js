@@ -24,6 +24,19 @@ const game = {
 
     init: function (container) {
         this.container_element = container;
+
+        socket.on('playIn', function (message) {
+            $('.description')
+                .append(
+                    '<div class="message"><strong>'+ message.user +'</strong>: '+ message.id +'</div>');
+        });
+
+        socket.on('gameStart', function () {
+            $('.description')
+                .append(
+                    '<div class="message">Jogo inicado!</div>');
+        });
+
     },
 
     make_play: function (position) {
