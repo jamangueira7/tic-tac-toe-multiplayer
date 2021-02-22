@@ -5,12 +5,19 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+const {
+    userJoin,
+    getCurrentUser,
+    userLeave,
+    userLength,
+    usersIn
+} = require('./utils/users');
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-let users = [];
 let gameInit = false;
 
 //rota inical abre o front
@@ -22,7 +29,7 @@ app.use('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log(`Socket conectado: ${socket.id}`);
 
-    if(users.length >= 2 && gameInit) {
+    if(userLength() >= 2 && gameInit) {
         socket.emit('gameError', `Jogo ocupado!`);
         return;
     }
@@ -32,33 +39,20 @@ io.on('connection', (socket) => {
 
 
     socket.on('disconnect', () => {
-
-        const index = users.findIndex(user => user.id === socket.id);
-        console.log(`ERROR ${index}`);
-        if(index !== -1) {
-            users.splice(index, 1);
-            gameInit = false;
-            io.to("1").emit('PlayOut', `Jogador ${socket.id} saiu!`);
-            return;
-        }
+        userLeave(socket.id);
+        gameInit = false;
+        io.to("1").emit('PlayOut', `Jogador ${socket.id} saiu!`);
+        return;
     });
 
-    let messageObject = {
-        user: `user${users.length + 1}`,
-        id: socket.id
-    };
 
-    users.push(messageObject);
-
-    console.log(`users ${users.length}`);
+    const user = userJoin(socket.id, `user${userLength() + 1}`);
 
     socket.broadcast.to("1").emit('playIn', `Jogador ${socket.id} Entrou!`);
 
-    io.to("1").emit('gameUsers', users);
+    io.to("1").emit('gameUsers', usersIn());
 
-    console.log(`tamanho: ${users.length}`);
-    console.log(`iniciado: ${gameInit}`);
-    if(users.length >= 2 && !gameInit) {
+    if(userLength() >= 2 && !gameInit) {
         gameInit = true;
         io.to("1").emit('gameStart', 'Jogo iniciado!');
     }
