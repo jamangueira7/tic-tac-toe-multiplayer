@@ -1,3 +1,5 @@
+var socket = io('http://localhost:3000/');
+
 const game = {
     board: ['', '', '', '', '', '', '', '', ''],
     simbols: {

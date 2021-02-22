@@ -2,9 +2,9 @@
   "name": "tic-tac-toe",
   "version": "1.0.0",
   "description": "<p align=\"center\">   <a href=\"#rocket-tecnologias\">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;   <a href=\"#-projeto\">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;   <a href=\"#-como-rodar\">Como rodar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;   <a href=\"#-como-contribuir\">Como contribuir</a>&nbsp;&nbsp;&nbsp;   </p>",
-  "main": "public/game.js",
+  "main": "./server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./server.js"
   },
   "repository": {
     "type": "git",
