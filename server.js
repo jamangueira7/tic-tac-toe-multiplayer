@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
     });
 
     let messageObject = {
-        user: `user${users.length}`,
+        user: `user${users.length + 1}`,
         id: socket.id
     };
 

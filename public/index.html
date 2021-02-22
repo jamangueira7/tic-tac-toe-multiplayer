@@ -20,47 +20,47 @@
         game.init( document.querySelector('.game') );
         game.start();
 
+        function sendUserMessager(obj) {
+            $('.messages')
+                .append(
+                    '<div class="message"><strong>'+ obj.user +'</strong>: '+ obj.id +'</div>');
+
+        }
+
+        function sendMessager(message) {
+            $('.messages')
+                .append(
+                    '<div class="message">' + message + '</div>');
+
+        }
+
         function scrollFocus() {
             document.querySelector('.messages').scrollTop = document.querySelector('.messages').scrollHeight;
         }
 
         socket.on('gameStart', function () {
-            $('.messages')
-                .append(
-                    '<div class="message">Jogo inicado!</div>');
-
+            sendMessager('Jogo inicado!');
             scrollFocus();
         });
 
         socket.on('playIn', function (message) {
-            $('.messages')
-                .append(
-                    '<div class="message"><strong>'+ message.user +'</strong>: '+ message.id +'</div>');
-
+            sendUserMessager(message)
             scrollFocus();
         });
 
         socket.on('PlayOut', function (message) {
-            $('.messages')
-                .append(
-                    '<div class="message">'+ message +'</div>');
-
+            sendMessager(message);
             scrollFocus();
         });
 
         socket.on('gameError', function (message) {
-            $('.messages')
-                .append(
-                    '<div class="message">'+ message +'</div>');
-
+            sendMessager(message);
             scrollFocus();
         });
 
         socket.on('gameUsers', function (users) {
             for(user of users) {
-                $('.messages')
-                    .append(
-                        '<div class="message"><strong>'+ user.user +'</strong>: '+ user.id +'</div>');
+                sendUserMessager(user)
             }
 
             scrollFocus();
