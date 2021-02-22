@@ -20,6 +20,8 @@
         game.init( document.querySelector('.game') );
         game.start();
 
+        document.querySelector('.chat-messages')
+        
         socket.on('gameStart', function () {
             $('.messages')
                 .append(
