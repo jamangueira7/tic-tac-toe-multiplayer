@@ -10,21 +10,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.js"></script>
 </head>
 <body>
-    <div class="game"></div>
+    <div class="game">
+        <p class="initalMessage">Aguarde um usuario para começar o jogo!</p>
+    </div>
     <div class="description">
         <div class="messages"></div>
         <button class="buttonRestart">Reiniciar jogo!</button>
     </div>
     <script type="text/javascript" src="game.js"></script>
     <script>
-        game.init( document.querySelector('.game') );
-        game.start();
-
         function sendUserMessager(obj) {
             $('.messages')
                 .append(
                     '<div class="message"><strong>'+ obj.user +'</strong>: '+ obj.id +'</div>');
-
         }
 
         function sendMessager(message) {
@@ -38,33 +36,41 @@
             document.querySelector('.messages').scrollTop = document.querySelector('.messages').scrollHeight;
         }
 
-        socket.on('gameStart', function () {
-            sendMessager('Jogo inicado!');
-            scrollFocus();
-        });
 
         socket.on('playIn', function (message) {
-            sendUserMessager(message)
+            sendMessager(message);
+            sendMessager('------------------------------');
             scrollFocus();
         });
 
         socket.on('PlayOut', function (message) {
+            document.querySelector('.game').innerHTML = '<p class="initalMessage">Aguarde um usuario para começar o jogo!</p>';
             sendMessager(message);
+            sendMessager('------------------------------');
             scrollFocus();
         });
 
         socket.on('gameError', function (message) {
             sendMessager(message);
+            sendMessager('------------------------------');
             scrollFocus();
         });
 
         socket.on('gameUsers', function (users) {
+            sendMessager('Jogadores: ');
             for(user of users) {
-                sendUserMessager(user)
+                sendUserMessager(user);
             }
-
+            sendMessager('------------------------------');
             scrollFocus();
+        });
 
+        socket.on('gameStart', function (message) {
+            game.init( document.querySelector('.game') );
+            game.start();
+            sendMessager(message);
+            sendMessager('------------------------------')
+            scrollFocus();
         });
 
     </script>

@@ -16,6 +16,14 @@ body {
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
 
+.initalMessage {
+    width: 500px;
+    height: 100px;
+    margin: 200px 30px ;
+    font-weight: bold;
+    font-size: 25px;
+}
+
 .game > div {
     border: 6px solid #2c3e50;
     border-radius: 2px;

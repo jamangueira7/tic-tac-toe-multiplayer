@@ -11,6 +11,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 let users = [];
+let gameInit = false;
 
 //rota inical abre o front
 app.use('/', (req, res) => {
@@ -21,7 +22,7 @@ app.use('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log(`Socket conectado: ${socket.id}`);
 
-    if(users.length >= 2 ) {
+    if(users.length >= 2 && gameInit) {
         socket.emit('gameError', `Jogo ocupado!`);
         return;
     }
@@ -31,13 +32,15 @@ io.on('connection', (socket) => {
 
 
     socket.on('disconnect', () => {
+
         const index = users.findIndex(user => user.id === socket.id);
-
+        console.log(`ERROR ${index}`);
         if(index !== -1) {
-            return users.splice(index, 1)[0];
+            users.splice(index, 1);
+            gameInit = false;
+            io.to("1").emit('PlayOut', `Jogador ${socket.id} saiu!`);
+            return;
         }
-
-        socket.broadcast.to("1").emit('PlayOut', `Jogador ${socket.id} saiu!`);
     });
 
     let messageObject = {
@@ -49,12 +52,15 @@ io.on('connection', (socket) => {
 
     console.log(`users ${users.length}`);
 
-    socket.broadcast.to("1").emit('playIn', messageObject);
+    socket.broadcast.to("1").emit('playIn', `Jogador ${socket.id} Entrou!`);
 
     io.to("1").emit('gameUsers', users);
 
-    if(users.length >= 2 ) {
-        socket.broadcast.to("1").emit('gameStart',);
+    console.log(`tamanho: ${users.length}`);
+    console.log(`iniciado: ${gameInit}`);
+    if(users.length >= 2 && !gameInit) {
+        gameInit = true;
+        io.to("1").emit('gameStart', 'Jogo iniciado!');
     }
 });
 
