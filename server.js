@@ -64,9 +64,8 @@ io.on('connection', (socket) => {
     });
 
     socket.on('Jogando', (data) => {
-        console.log(`---------------> ${getJogadorDaVez().id}`);
+
         if(getJogadorDaVez().id == data.user) {
-            console.log(`--------------->2`);
             setJogada(data.position, getJogadorDaVez().option);
             setJogadorDaVez(getNotCurrentUser(socket.id));
 

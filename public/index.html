@@ -70,8 +70,6 @@
 
         socket.on('SuaVez', function (obj) {
             var element = document.getElementById("game");
-            console.log(obj)
-            console.log(socket.id)
             if(obj.suaVez) {
                 element.classList.remove("disabledbutton");
                 sendMessager(`SUA VEZ ${obj.username}- [${obj.peca}]`);
@@ -84,7 +82,6 @@
         });
 
         socket.on('Joguei', function (obj) {
-            console.log(obj)
             game.board = obj.jogadas;
             game.draw();
             if(!obj.vencedor) {
@@ -134,7 +131,6 @@
         socket.on('gameUsers', function (users) {
             sendMessager('Jogadores: ');
             for(user of users) {
-                console.log(`Socket conectado: ${user}`);
                 sendUserMessager(user);
             }
             sendMessager('------------------------------');

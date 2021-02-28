@@ -7,10 +7,6 @@
 
 <br>
 
-<p align="center">
-  <img alt="game" src=".github/game.PNG" width="100%">
-</p>
-
 ## Jogo da velha (Tic tac toe)
 
 ## 🚀 Tecnologias
@@ -20,19 +16,33 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript) 
 - [HTML5](https://developer.mozilla.org/pt-BR/docs/Web/HTML/HTML5) 
 - [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS) 
+- [NodeJS](https://nodejs.org/en/) 
+- [Socket.io](https://socket.io/) 
 
 
 ## 💻 Projeto
 
-Jogo da velha em rede.
+Jogo da velha em rede usando Socket.io e node.
 
-Baseado no video do canal [Código fonte](https://www.youtube.com/watch?v=M258B1b_pMs)
+O visual do jogo foi baseado no video do canal [Código fonte](https://www.youtube.com/watch?v=M258B1b_pMs)
 
+<p align="center">
+  <img alt="game" src=".github/game.PNG" width="100%">
+</p>
 
+<p align="center">
+  <img alt="game" src=".github/game.PNG" width="100%">
+</p>
+
+<p align="center">
+  <img alt="game" src=".github/game.PNG" width="100%">
+</p>
 ## 🚀 Como Rodar
 
 - Clone o projeto.
-- Entre no repositório e clice duas vezes no arquivo index.html
+- Entre no repositório e rode "yarn install"
+- Rode "yarn start"
+- acesse o frontend em "http://localhost:3000/"
 
 ## 🤔 Como contribuir
 
