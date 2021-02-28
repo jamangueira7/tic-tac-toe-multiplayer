@@ -35,6 +35,7 @@ io.on('connection', (socket) => {
     console.log(`Socket conectado: ${socket.id}`);
     users = usersIn();
 
+    //Evita que um terceiro jogador consiga entrar.
     if(userLength() >= 2 && getJogoIniciado()) {
         socket.emit('gameError', `Jogo ocupado!`);
         return;
@@ -49,6 +50,7 @@ io.on('connection', (socket) => {
         return;
     });
 
+    //Usuario fica checando se é ou não a vez dele
     socket.on('MinhaVez', (data) => {
         if(users[getJogadorDaVez()].id == data.user) {
             var obj = {
@@ -72,13 +74,17 @@ io.on('connection', (socket) => {
     });
 
 
+    //Add novo jogador
     newUser = userLength() === 1 ? 'user2' : 'user1';
-    const user = userJoin(socket.id, newUser);
+    userJoin(socket.id, newUser);
 
+    //Avisa que um novo jogador entrou
     socket.broadcast.to("1").emit('playIn', `Jogador ${socket.id} Entrou!`);
 
+    //Envia jogadores do jogo
     io.to("1").emit('gameUsers', usersIn());
 
+    //Inicia o jogo caso tenha 2 jogadores e o jogo não tenha sido iniciado
     if(userLength() >= 2 && !getJogoIniciado()) {
         setIniciarJogo(true);
         const rand = Math.floor(Math.random() * 2);
