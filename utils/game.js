@@ -15,8 +15,6 @@ let jogoIniciado = [];
 
 let jogador_vez = '';
 
-let primeiro_a_jogar = '';
-
 function getJogadorDaVez() {
     return jogador_vez;
 }
@@ -26,8 +24,19 @@ function setJogadorDaVez(jogador) {
 }
 
 function setIniciarJogo(value) {
+    tabuleiro =  ['', '', '', '', '', '', '', '', ''];
     jogoIniciado[0] = value;
 }
+
+function setJogada(position, peca) {
+    tabuleiro[position] = peca;
+}
+
+function getJogadas() {
+    return tabuleiro;
+}
+
+
 
 function getJogoIniciado() {
     return jogoIniciado[0];
@@ -39,4 +48,6 @@ module.exports = {
     setJogadorDaVez,
     setIniciarJogo,
     getJogoIniciado,
+    setJogada,
+    getJogadas,
 };

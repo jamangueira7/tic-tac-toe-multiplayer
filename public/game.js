@@ -29,19 +29,7 @@ const game = {
     make_play: function (position) {
         if(this.gameover) return false;
 
-        if(this.board[position] === '') {
-            this.board[position] = this.simbols.options[this.simbols.turn_index];
-            this.draw();
-            let winning_sequences_index = this.check_winner_sequences(this.simbols.options[this.simbols.turn_index]);
-            if(winning_sequences_index >= 0) {
-                this.game_is_over();
-            }else{
-                this.simbols.change();
-            }
-            return true;
-        }else {
-            return false;
-        }
+        socket.emit('Jogando', {position, user:socket.id });
     },
 
     game_is_over: function () {

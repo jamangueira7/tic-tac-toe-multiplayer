@@ -20,7 +20,8 @@
     <script type="text/javascript" src="game.js"></script>
     <script>
         function sendUserMessager(obj) {
-            if(socket.id == obj.id) {
+
+            if(socket.id === obj.id) {
                 $('.messages')
                     .append(
                         '<div class="redText" ><strong>'+ obj.username +'['+obj.option+']</strong>: '+ obj.id +'</div>');
@@ -55,6 +56,8 @@
 
         socket.on('SuaVez', function (obj) {
             var element = document.getElementById("game");
+            console.log(obj)
+            console.log(socket.id)
             if(obj.suaVez) {
                 element.classList.remove("disabledbutton");
                 sendMessager(`SUA VEZ ${obj.username}- [${obj.peca}]`);
@@ -66,6 +69,12 @@
             scrollFocus();
         });
 
+        socket.on('Joguei', function (obj) {
+            console.log(obj)
+            game.board = obj;
+            game.draw();
+            minhaVez();
+        });
 
         socket.on('playIn', function (message) {
             sendMessager(message);

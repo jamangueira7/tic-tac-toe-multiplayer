@@ -28,6 +28,11 @@ function getCurrentUser(id) {
     return users.find(user => user.id === id);
 }
 
+function getNotCurrentUser(id) {
+
+    return users.find(user => user.id !== id);
+}
+
 function userLength() {
 
     return users.length;
@@ -51,6 +56,7 @@ function userLeave(id) {
 module.exports = {
     userJoin,
     getCurrentUser,
+    getNotCurrentUser,
     userLeave,
     userLength,
     usersIn

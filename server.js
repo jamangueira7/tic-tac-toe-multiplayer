@@ -8,6 +8,7 @@ const io = require('socket.io')(server);
 const {
     userJoin,
     getCurrentUser,
+    getNotCurrentUser,
     userLeave,
     userLength,
     usersIn
@@ -18,6 +19,8 @@ const {
     setJogadorDaVez,
     setIniciarJogo,
     getJogoIniciado,
+    setJogada,
+    getJogadas,
 } = require('./utils/game');
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -50,32 +53,48 @@ io.on('connection', (socket) => {
         return;
     });
 
+    socket.on('Jogando', (data) => {
+        console.log(`---------------> ${getJogadorDaVez().id}`);
+        if(getJogadorDaVez().id == data.user) {
+            console.log(`--------------->2`);
+            setJogada(data.position, getJogadorDaVez().option);
+            setJogadorDaVez(getNotCurrentUser(socket.id));
+
+            io.to("1").emit('Joguei', getJogadas());
+        }
+        return;
+    });
+
     //Usuario fica checando se é ou não a vez dele
     socket.on('MinhaVez', (data) => {
-        if(users[getJogadorDaVez()].id == data.user) {
+
+        if(getJogadorDaVez().id === data.user) {
+
             var obj = {
-                user: data.user,
-                suaVez: true,
-                peca: getCurrentUser(socket.id).option,
-                username: getCurrentUser(socket.id).username,
-            }
-            socket.to("1").emit('SuaVez', obj);
-        } else {
-            var obj = {
-                user: data.user,
                 suaVez: false,
-                peca: getCurrentUser(socket.id).option,
-                username: getCurrentUser(socket.id).username,
-            }
-            socket.to("1").emit('SuaVez', obj);
+                peca: getNotCurrentUser(socket.id).option,
+                username: getNotCurrentUser(socket.id).username,
+            };
+        } else {
+
+            var obj = {
+                suaVez: true,
+                peca: getNotCurrentUser(socket.id).option,
+                username: getNotCurrentUser(socket.id).username,
+            };
         }
-        //data.user
+
+        socket.broadcast.to("1").emit('SuaVez', obj);
         return;
     });
 
 
+    newUser = 'user1';
     //Add novo jogador
-    newUser = userLength() === 1 ? 'user2' : 'user1';
+    if(userLength() === 1) {
+        newUser = users[0].username === 'user2' ? 'user1' : 'user2';
+    }
+
     userJoin(socket.id, newUser);
 
     //Avisa que um novo jogador entrou
@@ -88,7 +107,7 @@ io.on('connection', (socket) => {
     if(userLength() >= 2 && !getJogoIniciado()) {
         setIniciarJogo(true);
         const rand = Math.floor(Math.random() * 2);
-        setJogadorDaVez(rand);
+        setJogadorDaVez(users[rand]);
         io.to("1").emit('gameStart', 'Jogo iniciado!');
     }
 });
