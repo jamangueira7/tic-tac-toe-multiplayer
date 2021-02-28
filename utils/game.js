@@ -19,6 +19,20 @@ function getJogadorDaVez() {
     return jogador_vez;
 }
 
+
+function vencedor(simbol) {
+    for( i in sequencia_vencedora) {
+        if( tabuleiro[sequencia_vencedora[i][0]] == simbol &&
+            tabuleiro[sequencia_vencedora[i][1]] == simbol &&
+            tabuleiro[sequencia_vencedora[i][2]] == simbol ){
+            console.log('Sequencia vencedora '+i);
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 function setJogadorDaVez(jogador) {
     jogador_vez = jogador;
 }
@@ -50,4 +64,5 @@ module.exports = {
     getJogoIniciado,
     setJogada,
     getJogadas,
+    vencedor,
 };

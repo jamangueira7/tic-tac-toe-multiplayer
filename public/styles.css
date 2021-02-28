@@ -90,3 +90,7 @@ body {
     pointer-events: none;
     opacity: 0.8;
 }
+
+.vencedor {
+    color: green !important;
+}

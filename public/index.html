@@ -15,10 +15,24 @@
     </div>
     <div class="description">
         <div class="messages"></div>
-        <button class="buttonRestart">Reiniciar jogo!</button>
+        <button id="reiniciar" class="buttonRestart">Reiniciar jogo!</button>
     </div>
     <script type="text/javascript" src="game.js"></script>
     <script>
+        $('#reiniciar').click(function () {
+            var r = confirm("O jogo será reiniciado! Tem certeza que quer reiniciar o jogo?");
+
+            if (r === true) {
+                var obj = {
+                    user: socket.id
+                }
+                socket.emit('Reiniciar', obj);
+                return;
+            }
+
+            return;
+        });
+
         function sendUserMessager(obj) {
 
             if(socket.id === obj.id) {
@@ -71,9 +85,31 @@
 
         socket.on('Joguei', function (obj) {
             console.log(obj)
-            game.board = obj;
+            game.board = obj.jogadas;
             game.draw();
-            minhaVez();
+            if(!obj.vencedor) {
+                minhaVez();
+            }
+        });
+
+        socket.on('Vencedor', function (obj) {
+            sendMessager(`O jogador ${obj.user.username} VENCEU!`);
+            sendMessager('------------------------------');
+            scrollFocus();
+            var element = document.getElementById("game");
+            element.classList.add("disabledbutton");
+
+            for(i in game.winning_sequences[obj.sequencia]) {
+                var element = document.getElementById("casa_"+i);
+                element.classList.add("vencedor");
+            }
+
+        });
+
+        socket.on('JogoReiniciado', function (message) {
+            sendMessager(message);
+            sendMessager('------------------------------');
+            scrollFocus();
         });
 
         socket.on('playIn', function (message) {

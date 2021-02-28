@@ -21,6 +21,7 @@ const {
     getJogoIniciado,
     setJogada,
     getJogadas,
+    vencedor,
 } = require('./utils/game');
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -53,6 +54,15 @@ io.on('connection', (socket) => {
         return;
     });
 
+    socket.on('Reiniciar', (data) => {
+        setIniciarJogo(true);
+        const rand = Math.floor(Math.random() * 2);
+        setJogadorDaVez(users[rand]);
+        io.to("1").emit('JogoReiniciado', `Jogador ${getCurrentUser(socket.id).username} reiniciou o jogo!`);
+        io.to("1").emit('gameStart', 'Jogo iniciado!');
+        return;
+    });
+
     socket.on('Jogando', (data) => {
         console.log(`---------------> ${getJogadorDaVez().id}`);
         if(getJogadorDaVez().id == data.user) {
@@ -60,7 +70,21 @@ io.on('connection', (socket) => {
             setJogada(data.position, getJogadorDaVez().option);
             setJogadorDaVez(getNotCurrentUser(socket.id));
 
-            io.to("1").emit('Joguei', getJogadas());
+            const Sequencia = vencedor(getCurrentUser(socket.id).option);
+
+            io.to("1").emit('Joguei', { jogadas: getJogadas(), vencedor: Sequencia !== -1 ? true : false});
+
+            if(Sequencia !== -1) {
+                const obj = {
+                    user: getCurrentUser(socket.id),
+                    sequencia: Sequencia,
+                }
+                io.to("1").emit('Vencedor', obj);
+                return;
+            }
+
+
+
         }
         return;
     });

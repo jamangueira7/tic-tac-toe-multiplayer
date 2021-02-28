@@ -10,7 +10,6 @@ const game = {
         }
     },
     container_element: null,
-    gameover: false,
     winning_sequences: [
         [0,1,2],
         [3,4,5],
@@ -27,14 +26,9 @@ const game = {
     },
 
     make_play: function (position) {
-        if(this.gameover) return false;
-
-        socket.emit('Jogando', {position, user:socket.id });
-    },
-
-    game_is_over: function () {
-        this.gameover = true;
-
+        if(this.board[position] === "") {
+            socket.emit('Jogando', { position, user:socket.id });
+        }
     },
 
     start: function () {
@@ -43,22 +37,11 @@ const game = {
         this.gameover = false;
     },
 
-    check_winner_sequences: function (simbol) {
-        for( i in this.winning_sequences) {
-            if( this.board[this.winning_sequences[i][0]] == simbol &&
-                this.board[this.winning_sequences[i][1]] == simbol &&
-                this.board[this.winning_sequences[i][2]] == simbol ){
-                console.log('Sequencia vencedora '+i);
-                return i;
-            }
-        }
-        return -1;
-    },
 
     draw: function () {
         let content = '';
         for ( i in this.board ) {
-            content += '<div onclick="game.make_play('+ i +')">'+ this.board[i] +'</div>';
+            content += '<div id="casa_'+ i +'" onclick="game.make_play('+ i +')">'+ this.board[i] +'</div>';
         }
 
         this.container_element.innerHTML = content;
