@@ -46,6 +46,23 @@
             document.querySelector('.messages').scrollTop = document.querySelector('.messages').scrollHeight;
         }
 
+        function minhaVez() {
+            var messageObject = {
+                user: socket.id,
+            };
+            socket.emit('MinhaVez', messageObject);
+        }
+
+        socket.on('SuaVez', function (obj) {
+            if(obj.suaVez) {
+                sendMessager(`SUA VEZ ${obj.username}- [${obj.peca}]`);
+            } else {
+                sendMessager(`ESPERE A SUA VEZ ${obj.username} - [${obj.peca}]`);
+            }
+            sendMessager('------------------------------');
+            scrollFocus();
+        });
+
 
         socket.on('playIn', function (message) {
             sendMessager(message);
@@ -79,6 +96,7 @@
         socket.on('gameStart', function (message) {
             game.init( document.querySelector('.game') );
             game.start();
+            minhaVez();
             sendMessager(message);
             sendMessager('------------------------------')
             scrollFocus();
