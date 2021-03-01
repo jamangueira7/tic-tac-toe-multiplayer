@@ -31,18 +31,19 @@ O visual do jogo foi baseado no video do canal [Código fonte](https://www.youtu
 </p>
 
 <p align="center">
-  <img alt="game" src=".github/game.PNG" width="100%">
+  <img alt="game" src=".github/game2.PNG" width="100%">
 </p>
 
 <p align="center">
-  <img alt="game" src=".github/game.PNG" width="100%">
+  <img alt="game" src=".github/animated.gif" width="100%">
 </p>
+
 ## 🚀 Como Rodar
 
 - Clone o projeto.
 - Entre no repositório e rode "yarn install"
 - Rode "yarn start"
-- acesse o frontend em "http://localhost:3000/"
+- acesse o frontend em "http://localhost:3000"
 
 ## 🤔 Como contribuir
 

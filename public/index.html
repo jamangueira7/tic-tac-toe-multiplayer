@@ -95,9 +95,9 @@
             scrollFocus();
             var element = document.getElementById("game");
             element.classList.add("disabledbutton");
-
+            game.winning_sequences[obj.sequencia]
             for(i in game.winning_sequences[obj.sequencia]) {
-                var element = document.getElementById("casa_"+i);
+                var element = document.getElementById("casa_"+game.winning_sequences[obj.sequencia][i]);
                 element.classList.add("vencedor");
             }
 
