@@ -3,11 +3,11 @@
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-rodar">Como rodar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;
-  </p>
+</p>
 
 <br>
 
-## Jogo da velha (Tic tac toe)
+# Jogo da velha (Tic tac toe)
 
 ## 🚀 Tecnologias
 
